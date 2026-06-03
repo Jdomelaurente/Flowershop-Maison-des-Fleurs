@@ -3,29 +3,32 @@ __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
-*.pyc
+*.egg
+*.egg-info/
+dist/
+build/
+*.so
 
-# Virtual Environment
+# Virtual environment
 venv/
 env/
+.env
 .venv/
 
-# Flask / SQLite
+# Flask / SQLite instance
 instance/
 *.db
 *.sqlite3
 
-# Environment variables
-.env
-*.env
+# Migrations cache
+migrations/__pycache__/
+migrations/versions/__pycache__/
 
-# IDE
+# IDE / OS
 .vscode/
 .idea/
-
-# OS
-.DS_Store
+*.DS_Store
 Thumbs.db
 
-# Migrations (optional: keep if you want migration history)
-# migrations/
+# Logs
+*.log
