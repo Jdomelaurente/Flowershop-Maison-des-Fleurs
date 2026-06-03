@@ -11,11 +11,19 @@ app = Flask(__name__, template_folder='templates')
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 # Configurations
-instance_dir = os.path.join(basedir, 'instance')
-os.makedirs(instance_dir, exist_ok=True)  # Ensure instance/ exists on Render
-app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(instance_dir, "flower.db")}'
+# On Render (Linux), use /tmp which is always writable. Locally, use instance/
+if os.environ.get('RENDER'):
+    db_path = '/tmp/flower.db'
+    upload_path = '/tmp/uploads'
+else:
+    instance_dir = os.path.join(basedir, 'instance')
+    os.makedirs(instance_dir, exist_ok=True)
+    db_path = os.path.join(instance_dir, 'flower.db')
+    upload_path = os.path.join(basedir, 'static', 'uploads')
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'maison-des-fleurs-secret-key-2024')
-UPLOAD_FOLDER = os.path.join(basedir, 'static', 'uploads')
+UPLOAD_FOLDER = upload_path
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
