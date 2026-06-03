@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pos.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <input type="checkbox" id="check">
+    
+    <!-- Header Section -->
+    <header>
+      <label for="check">
+        <i class="fas fa-bars" id="sidebar_btn"></i>
+      </label>
+      <div class="left_area">
+        <h3>Coffe <span>Shop</span></h3>
+      </div>
+      <div class="right_area">
+        <a href="{{ url_for('logout') }}" class="logout_btn">Logout</a>
+      </div>
+    </header>
+
+    <!-- Sidebar Section -->
+    <div class="sidebar">
+      <a href="{{ url_for('dashboard') }}"><i class="fas fa-desktop"></i><span>Dashboard</span></a>
+      <a href="#"><i class="fas fa-cogs"></i><span>Components</span></a>
+      <a href="#"><i class="fas fa-table"></i><span>Tables</span></a>
+      <a href="#"><i class="fas fa-th"></i><span>Forms</span></a>
+      <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
+      <a href="#"><i class="fas fa-sliders-h"></i><span>Settings</span></a>
+    </div>
+
+    <!-- Content Section -->
+    <div class="content">
+      <div class="card">
+        <h2>Welcome, {{ username }}!</h2>
+        <p>This is your personal dashboard. You can add more dynamic content here.</p>
+      </div>
+      <div class="card">
+        <p>More details can be displayed here for the user.</p>
+      </div>
+      <div class="card">
+        <p>Additional information can be placed here as well.</p>
+      </div>
+    </div>
+  </body>
+</html>

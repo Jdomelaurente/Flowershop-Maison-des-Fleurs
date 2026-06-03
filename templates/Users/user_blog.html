@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='src/style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+     <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa;
+    }
+
+    .header {
+        background-color: #ffffff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+    }
+
+    .logo img {
+        height: 45px;
+    }
+
+    .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 25px;
+        align-items: center;
+        margin: 0;
+    }
+
+    .nav-links li a {
+        text-decoration: none;
+        color: #2c3e50;
+        font-weight: 500;
+        transition: color 0.3s;
+    }
+
+    .nav-links li a:hover,
+    .nav-links li a.active {
+        color: #3498db;
+    }
+
+    .nav-actions .logout-btn {
+        color: #e74c3c;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .menu-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+    }
+
+    .bar {
+        height: 3px;
+        width: 25px;
+        background-color: #2c3e50;
+        margin: 4px 0;
+    }
+
+    @media (max-width: 768px) {
+        .nav-links {
+            position: absolute;
+            right: 0;
+            top: 70px;
+            flex-direction: column;
+            background-color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            display: none;
+            padding: 15px;
+        }
+
+        .nav-links.active {
+            display: flex;
+        }
+
+        .menu-toggle {
+            display: flex;
+        }
+    }
+
+    main {
+        padding: 50px 20px;
+        background-color: #f4f4f4;
+    }
+
+    .blog-content {
+        max-width: 1200px;
+        margin: auto;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .blog-content h1 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        color: #2c3e50;
+    }
+
+    .blog-content p {
+        text-align: center;
+        font-size: 1.1rem;
+        color: #7f8c8d;
+        margin-bottom: 40px;
+    }
+
+    .blog-posts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: space-between;
+    }
+
+    .blog-post {
+        flex: 1 1 calc(33.333% - 20px);
+        background-color: #ecf0f1;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        transition: transform 0.3s;
+    }
+
+    .blog-post:hover {
+        transform: translateY(-5px);
+    }
+
+    .blog-post img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .blog-post h3 {
+        margin-top: 15px;
+        font-size: 1.4rem;
+        color: #2c3e50;
+    }
+
+    .blog-post p {
+        font-size: 1rem;
+        color: #555;
+        margin: 10px 0;
+    }
+
+    .blog-post a {
+        font-weight: 500;
+        text-decoration: none;
+        color: #3498db;
+        transition: color 0.2s;
+    }
+
+    .blog-post a:hover {
+        color: #2c82c9;
+    }
+
+    @media (max-width: 992px) {
+        .blog-post {
+            flex: 1 1 calc(50% - 20px);
+        }
+    }
+
+    @media (max-width: 576px) {
+        .blog-post {
+            flex: 1 1 100%;
+        }
+
+        .nav-container {
+            padding: 15px 20px;
+        }
+
+        .blog-content {
+            padding: 20px;
+        }
+    }
+
+    .simple-footer {
+        background-color: #2c3e50;
+        color: white;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .footer-logo {
+        height: 40px;
+    }
+
+    .tagline {
+        margin-top: 10px;
+        font-size: 14px;
+    }
+</style>
+
+</head>
+<body>
+
+<header class="header">
+    <nav class="nav-container">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='image/logo_in_flower.png') }}" alt="Logo">
+        </div>   
+
+        <!-- Mobile menu button -->
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        
+        <ul class="nav-links" id="nav-links">
+            <li><a href="{{ url_for('user_dashboard') }}">Home</a></li>
+            <li><a href="{{ url_for('user_product_dashboard') }}">Product</a></li>             
+            <li><a href="{{ url_for('user_blog') }}" class="active">Blogs</a></li>
+            <li><a href="{{ url_for('user_about') }}">About Us</a></li>  <!-- About Us link -->
+             <li><a href="{{ url_for('user_contact') }}">Contact</a></li>  <!-- Contact link -->
+        </ul>
+
+        <div class="nav-actions">
+            <a href="{{ url_for('logout') }}" class="logout-btn">
+                <i class='bx bx-log-out'></i>
+                <span style="color: rgb(45, 45, 45);">Logout</span>
+            </a>
+        </div>
+    </nav>
+     <!-- Main Blog Content -->
+    <main>
+        <section class="blog-content">
+            <h1>Welcome to the Blog</h1>
+            <p>Explore our latest posts and articles on flowers, arrangements, and gardening tips.</p>
+
+            <!-- Blog Posts -->
+            <div class="blog-posts">
+                <!-- Blog Post 1 -->
+                <div class="blog-post">
+                    <img src="{{ url_for('static', filename='image/blog1.jpg') }}" alt="Blog 1">
+                    <h3>How to Arrange Beautiful Flowers</h3>
+                    <p>Learn the art of flower arrangement and make your home bloom with vibrant colors. It’s easier than you think!</p>
+                    <a href="blog_detail1.php">Read more</a>
+                </div>
+
+                <!-- Blog Post 2 -->
+                <div class="blog-post">
+                <img src="{{ url_for('static', filename='image/blog2.jpg') }}" alt="Blog 2">
+                    <h3>Top 10 Wedding Flower Trends for 2025</h3>
+                    <p>Find out which flowers are trending for weddings in 2025 and get inspired for your big day.</p>
+                    <a href="blog_detail2.php">Read more</a>
+                </div>
+
+                <!-- Blog Post 3 -->
+                <div class="blog-post">
+                <img src="{{ url_for('static', filename='image/blog3.jpg') }}" alt="Blog 3">
+                    <h3>Flower Care Tips for Beginners</h3>
+                    <p>New to gardening? Here are some simple and easy-to-follow tips for keeping your flowers healthy and vibrant.</p>
+                    <a href="blog_detail3.php">Read more</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="simple-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="{{ url_for('static', filename='image/logo in flower.png') }}" alt="Logo" class="footer-logo">
+                <p class="tagline">Bringing nature's beauty to your doorstep</p>
+            </div>
+        </div>
+    </footer>
+
+
+</body>
+</html>

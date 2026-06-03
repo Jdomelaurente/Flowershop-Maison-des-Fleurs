@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='src/style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .cart-container {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-item {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-right: 20px;
+            border-radius: 8px;
+        }
+
+        .cart-item .item-details {
+            flex: 1;
+        }
+
+        .cart-item .item-details h5 {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .cart-item .item-details p {
+            color: #777;
+        }
+
+        .cart-item .item-details .price {
+            font-size: 16px;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .total-section {
+            border-top: 2px solid #ddd;
+            padding-top: 20px;
+            text-align: right;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .btn-custom {
+            width: 200px;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .btn-success-custom {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .btn-success-custom:hover {
+            background-color: #2ecc71;
+        }
+
+        .btn-danger-custom {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger-custom:hover {
+            background-color: #c0392b;
+        }
+
+        .btn-secondary-custom {
+            background-color: #95a5a6;
+            color: white;
+        }
+
+        .btn-secondary-custom:hover {
+            background-color: #7f8c8d;
+        }
+
+        .empty-cart {
+            text-align: center;
+            font-size: 18px;
+            padding: 50px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container cart-container">
+
+    <h2 class="mb-4">Shopping Cart</h2>
+
+    {% if cart_items %}
+        {% for item in cart_items %}
+            <div class="cart-item">
+                <Image URL: {{ url_for('static', filename='image/src/uploads/' + (item.image if item.image else 'default.jpg')) }}>
+                <div class="item-details">
+                    <h5>{{ item.name }}</h5>
+                    <p>{{ item.description if item.description else 'No description available' }}</p>
+                    <div class="price">₱{{ '%.2f'|format(item.price) }}</div>
+                    <div class="quantity">Quantity: {{ item.quantity }}</div>
+                    <div class="subtotal">Subtotal: ₱{{ '%.2f'|format(item.price * item.quantity) }}</div>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="total-section">
+            <p>Total: ₱{{ '%.2f'|format(total_amount) }}</p>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <a href="{{ url_for('checkout') }}" class="btn btn-custom btn-success-custom">Proceed to Checkout</a>
+            <a href="{{ url_for('clear_cart') }}" class="btn btn-custom btn-danger-custom">Clear Cart</a>
+        </div>
+        <a href="{{ url_for('user_product_dashboard') }}" class="btn btn-custom btn-secondary-custom">Continue Shopping</a>
+
+    {% else %}
+        <div class="empty-cart">
+            <p>Your cart is empty.</p>
+            <a href="{{ url_for('user_product_dashboard') }}" class="btn btn-primary">Go Back to Products</a>
+        </div>
+    {% endif %}
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Register | Maison des Fleurs</title>
+    <!-- Boxicons CDN -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            background: linear-gradient(135deg, hsl(274, 54%, 95%), hsl(280, 30%, 90%));
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+        .register-card {
+            background: var(--bg-card);
+            padding: 3rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 450px;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+        .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.3s;
+        }
+        .close-btn:hover {
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+
+<div class="register-card">
+    <button class="close-btn" onclick="window.location.href='/'">&times;</button>
+    <div class="modal-header">
+        <img src="{{ url_for('static', filename='image/logo in flower.png') }}" alt="Logo" class="modal-logo" style="margin: 0 auto 1rem auto; display: block;">
+        <h2>Create Account</h2>
+        <p>Get started with Maison des Fleurs</p>
+    </div>
+
+    <!-- Flash message for success or error -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="mb-3">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ 'danger' if category == 'error' or category == 'danger' else 'success' }} alert-dismissible fade show" role="alert" style="padding: 0.75rem 1.25rem; font-size: 0.9rem; border-radius: var(--radius-sm);">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <div class="input-with-icon">
+                <i class='bx bx-user'></i>
+                <input type="text" id="username" name="username" placeholder="Choose a username" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-with-icon">
+                <i class='bx bx-lock-alt'></i>
+                <input type="password" id="password" name="password" placeholder="Create a strong password" required />
+            </div>
+        </div>
+
+        <button type="submit" class="submit-btn">Register</button>
+    </form>
+
+    <div class="login-link" style="text-align: center; margin-top: 1.5rem; font-size: 0.95rem; color: var(--text-secondary);">
+        <p>Already have an account? <a href="{{ url_for('login') }}" style="color: var(--primary); font-weight: 600;">Login here</a></p>
+    </div>
+</div>
+
+</body>
+</html>

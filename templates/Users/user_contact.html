@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='src/style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Your existing styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        main {
+            padding: 40px 0;
+            background-color: #fff;
+            margin-top: 80px;
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .contact-content h1 {
+            font-size: 36px;
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .contact-content p {
+            text-align: center;
+            font-size: 18px;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-form .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-form .form-group label {
+            font-size: 18px;
+            color: #34495e;
+            margin-bottom: 8px;
+        }
+
+        .contact-form .form-group input,
+        .contact-form .form-group textarea {
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .contact-form .form-group input:focus,
+        .contact-form .form-group textarea:focus {
+            border-color: #7b4bb7;
+            outline: none;
+        }
+
+        .contact-form .form-submit {
+            text-align: center;
+        }
+
+        .contact-form .form-submit button {
+            background-color: #7b4bb7;
+            color: white;
+            font-size: 18px;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form .form-submit button:hover {
+            background-color: #994fca;
+        }
+
+        .contact-form .form-submit button:active {
+            transform: scale(0.98);
+        }
+
+        /* Navigation & footer minimal styling (adjust as needed) */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .username {
+            color: #7b4bb7;
+            font-weight: bold;
+        }
+
+
+        footer.footer {
+            text-align: center;
+            padding: 20px;
+            background: #2c3e50;
+            color: white;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <nav class="nav-container">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='image/logo_in_flower.png') }}" alt="Logo">
+        </div>   
+
+        <!-- Mobile menu button -->
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        
+        <ul class="nav-links" id="nav-links">
+             <li><a href="{{ url_for('user_dashboard') }}">Home</a></li>
+            <li><a href="{{ url_for('user_product_dashboard') }}">Product</a></li>             
+            <li><a href="{{ url_for('user_blog') }}">Blogs</a></li>
+            <li><a href="{{ url_for('user_about') }}">About Us</a></li>  <!-- About Us link -->
+             <li><a href="{{ url_for('user_contact') }}"  class="active">Contact</a></li>  <!-- Contact link -->
+        </ul>
+
+        <div class="nav-actions">
+            <a href="{{ url_for('logout') }}" class="logout-btn">
+                <i class='bx bx-log-out'></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </nav>
+
+     <!-- Contact Us Form -->
+    <main>
+        <section class="contact-content">
+            <h1>Contact Us</h1>
+            <p>If you have any questions or feedback, feel free to reach out to us. We'll get back to you as soon as possible!</p>
+
+            <!-- Feedback message -->
+
+            <!-- Contact Form -->
+            <form class="contact-form" method="post" action="">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required />
+                </div>
+
+
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Your message..." required></textarea>
+                </div>
+
+                <div class="form-submit">
+                    <button type="submit">Send Message</button>
+                </div>
+            </form>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="simple-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="image/logo in flower.png" alt="Logo" class="footer-logo">
+                <p class="tagline">Bringing nature's beauty to your doorstep</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

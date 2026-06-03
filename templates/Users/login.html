@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login | Maison des Fleurs</title>
+    <!-- Boxicons CDN -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            background: linear-gradient(135deg, hsl(274, 54%, 95%), hsl(280, 30%, 90%));
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+        .login-card {
+            background: var(--bg-card);
+            padding: 3rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 450px;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+        .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.3s;
+        }
+        .close-btn:hover {
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-card">
+    <button class="close-btn" onclick="window.location.href='/'">&times;</button>
+    <div class="modal-header">
+        <img src="{{ url_for('static', filename='image/logo in flower.png') }}" alt="Logo" class="modal-logo" style="margin: 0 auto 1rem auto; display: block;">
+        <h2>Welcome Back</h2>
+        <p>Sign in to your account</p>
+    </div>
+
+    <!-- Flash message for success or error -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="mb-3">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ 'danger' if category == 'error' or category == 'danger' else 'success' }} alert-dismissible fade show" role="alert" style="padding: 0.75rem 1.25rem; font-size: 0.9rem; border-radius: var(--radius-sm);">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form id="loginForm" method="POST">
+        <div class="form-group">
+            <label for="username">Username or Email</label>
+            <div class="input-with-icon">
+                <i class='bx bx-user'></i>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-with-icon">
+                <i class='bx bx-lock-alt'></i>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <div class="form-options">
+                <div class="show-password">
+                    <input type="checkbox" id="showPassword">
+                    <label for="showPassword">Show Password</label>
+                </div>
+                <a href="{{ url_for('forgot_password') }}" class="forgot-password">Forgot password?</a>
+            </div>
+        </div>
+
+        <button type="submit" class="submit-btn">
+            <i class='bx bx-log-in'></i> Login
+        </button>
+
+        <div class="divider">
+            <span>or</span>
+        </div>
+
+        <p class="register-link">Don't have an account? 
+            <a href="{{ url_for('register') }}">Create account</a>
+        </p>
+    </form>
+</div>
+
+<script>
+    // Show/Hide Password
+    const showPasswordCheckbox = document.getElementById('showPassword');
+    const passwordInput = document.getElementById('password');
+
+    if (showPasswordCheckbox && passwordInput) {
+        showPasswordCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                passwordInput.type = 'text';
+            } else {
+                passwordInput.type = 'password';
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

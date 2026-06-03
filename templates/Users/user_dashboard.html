@@ -1,0 +1,202 @@
+{% extends 'Base/layout.html' %}
+
+{% block title %}Dashboard | Maison des Fleurs{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000" data-bs-pause="false">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{{ url_for('static', filename='image/slide1.JPG') }}" alt="Slide 1" class="fullscreen-img">
+                <div class="carousel-caption">
+                    <h1>Handcrafted Floral Arrangements</h1>
+                    <p>Designed with passion and freshness to light up your special moments.</p>
+                    <a href="{{ url_for('user_product_dashboard') }}" class="login-btn btn-lg" style="color: #fff !important;">Order Now</a>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{{ url_for('static', filename='image/slide2.JPG') }}" alt="Slide 2" class="fullscreen-img">
+                <div class="carousel-caption">
+                    <h1>Nature's Purest Blooms</h1>
+                    <p>Directly from local growers, delivered fresh to your doorstep.</p>
+                    <a href="{{ url_for('user_product_dashboard') }}" class="login-btn btn-lg" style="color: #fff !important;">Order Now</a>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{{ url_for('static', filename='image/slide3.JPG') }}" alt="Slide 3" class="fullscreen-img">
+                <div class="carousel-caption">
+                    <h1>Celebrate Every Occasion</h1>
+                    <p>Custom gift sets and premium centerpieces for weddings, birthdays, and anniversaries.</p>
+                    <a href="{{ url_for('user_product_dashboard') }}" class="login-btn btn-lg" style="color: #fff !important;">Order Now</a>
+                </div>
+            </div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</section>
+
+<!-- Products Section -->
+<section class="features" id="Product" style="background-image: url('{{ url_for('static', filename='image/background.png') }}'); background-size: cover; background-position: center; position: relative;">
+    <div class="features-overlay"></div>
+    <div class="features-content">
+        <h2>Featured Products</h2>
+        <div class="feature-cards">
+            <!-- Product 1 -->
+            <div class="feature-card">
+                <div class="product-image-container">
+                    <img src="{{ url_for('static', filename='image/product1.JPG') }}" alt="Lavender Dream">
+                </div>
+                <div class="product-info" style="padding: 1.5rem; text-align: center;">
+                    <h3 class="product-title" style="margin-bottom: 0.5rem; font-family: 'Playfair Display', serif;">Lavender Dream</h3>
+                    <p style="color: var(--primary); font-weight: 700; font-size: 1.2rem; margin-bottom: 0.8rem;">$45.00</p>
+                    <a href="{{ url_for('user_product_dashboard') }}" class="buy-now-btn">Order Now</a>
+                </div>
+            </div>
+            
+            <!-- Product 2 -->
+            <div class="feature-card">
+                <div class="product-image-container">
+                    <img src="{{ url_for('static', filename='image/product2.JPG') }}" alt="Peach Sunrise">
+                </div>
+                <div class="product-info" style="padding: 1.5rem; text-align: center;">
+                    <h3 class="product-title" style="margin-bottom: 0.5rem; font-family: 'Playfair Display', serif;">Peach Sunrise</h3>
+                    <p style="color: var(--primary); font-weight: 700; font-size: 1.2rem; margin-bottom: 0.8rem;">$55.00</p>
+                    <a href="{{ url_for('user_product_dashboard') }}" class="buy-now-btn">Order Now</a>
+                </div>
+            </div>
+            
+            <!-- Product 3 -->
+            <div class="feature-card">
+                <div class="product-image-container">
+                    <img src="{{ url_for('static', filename='image/product3.JPG') }}" alt="Orchid Blossom">
+                </div>
+                <div class="product-info" style="padding: 1.5rem; text-align: center;">
+                    <h3 class="product-title" style="margin-bottom: 0.5rem; font-family: 'Playfair Display', serif;">Orchid Blossom</h3>
+                    <p style="color: var(--primary); font-weight: 700; font-size: 1.2rem; margin-bottom: 0.8rem;">$60.00</p>
+                    <a href="{{ url_for('user_product_dashboard') }}" class="buy-now-btn">Order Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Blogs Section -->
+<section class="Blogs" id="Blogs">
+    <div class="container-fluid px-0">
+        <div id="howItWorksCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <!-- Slide 1 -->
+                <div class="carousel-item active position-relative">
+                    <img src="{{ url_for('static', filename='image/blogs1.png') }}" class="d-block w-100" alt="Submit Request" style="height: 700px; object-fit: cover;">
+                    <div class="position-absolute" style="top: 73%; left: 73%; transform: translate(-50%, -50%);">
+                        <a href="{{ url_for('user_product_dashboard') }}" class="shop-now-btn btn btn-lg" style="background-color: var(--primary); color: white; border: none; border-radius: 50px; padding: 12px 40px; font-size: 18px;">
+                            Shop Now
+                        </a>
+                    </div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="carousel-item">
+                    <img src="{{ url_for('static', filename='image/blogs2.png') }}" class="d-block w-100" alt="Download Document" style="height: 700px; object-fit: cover;">
+                </div>
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#howItWorksCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#howItWorksCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+
+            <div class="carousel-indicators mt-4">
+                <button type="button" data-bs-target="#howItWorksCarousel" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#howItWorksCarousel" data-bs-slide-to="1"></button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Us & Testimonials Section -->
+<section class="testimonials" id="testimonials">
+    <div class="container">
+        <div class="contact-header">
+            <h2>Our Story & Moments</h2>
+            <p>A collection of our signature works, floral arrangement tutorials, and lovely reviews from our customer community.</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="{{ url_for('static', filename='image/4.png') }}" alt="About Image">
+            </div>
+            <div class="gallery-item">
+                <img src="{{ url_for('static', filename='image/5.png') }}" alt="About Image">
+            </div>
+            <div class="gallery-item">
+                <img src="{{ url_for('static', filename='image/2.png') }}" alt="About Image">
+            </div>
+            <div class="gallery-item">
+                <img src="{{ url_for('static', filename='image/3.png') }}" alt="About Image">
+            </div>
+            <div class="gallery-item large">
+                <img src="{{ url_for('static', filename='image/Task2.png') }}" alt="About Image">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact" id="contact">
+    <div class="contact-container">
+        <div class="contact-header">
+            <h2>Get In Touch</h2>
+            <p>Have questions or feedback? Send us a message and we'll respond promptly.</p>
+        </div>
+
+        <div class="contact-form-container">
+            <form class="contact-form" id="contactForm" method="POST" action="/send-message">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" placeholder="What's this about?">
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Your message here..." rows="5" required></textarea>
+                </div>
+
+                <div class="form-submit">
+                    <button type="submit" class="submit-btn" id="sendMessageBtn">
+                        <i class='bx bx-paper-plane'></i> Send Message
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
