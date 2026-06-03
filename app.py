@@ -11,9 +11,11 @@ app = Flask(__name__, template_folder='templates')
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 # Configurations
-app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(basedir, "instance", "flower.db")}'
-app.config['SECRET_KEY'] = 'your_secret_key'
-UPLOAD_FOLDER = os.path.join('static', 'uploads')
+instance_dir = os.path.join(basedir, 'instance')
+os.makedirs(instance_dir, exist_ok=True)  # Ensure instance/ exists on Render
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(instance_dir, "flower.db")}'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'maison-des-fleurs-secret-key-2024')
+UPLOAD_FOLDER = os.path.join(basedir, 'static', 'uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
@@ -58,18 +60,6 @@ class Order(db.Model):
     quantity = db.Column(db.Integer)
     total_price = db.Column(db.Float)  # <-- Make sure this exists
     status = db.Column(db.String(20), default='pending')
-
-
-import sqlite3
-
-def get_all_orders():
-    conn = sqlite3.connect('instance/flower.db')  # adjust this to your actual DB path
-    conn.row_factory = sqlite3.Row  # this makes rows behave like dictionaries
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM orders")  # ensure your table is named 'orders'
-    orders = cur.fetchall()
-    conn.close()
-    return orders
 
 
 def get_all_orders():
