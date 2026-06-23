@@ -1,92 +1,122 @@
 # Maison des Fleurs
 
-A premium, modern e-commerce web application for a boutique flower shop, built using Python (Flask) and SQLite.
+Maison des Fleurs is a Flask-based flower shop web application with customer browsing, login/register flows, a shopping cart, and admin product management.
 
-## Table of Contents
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-- [How to Run](#how-to-run)
-- [Database Structure](#database-structure)
+## Overview
+
+This project uses:
+
+- Flask for the web app
+- SQLite for storage
+- SQLAlchemy and Flask-Migrate for database access and migrations
+- Flask-Login for authentication
+- Bootstrap and custom CSS for the UI
 
 ## Features
-- **Sophisticated Design System**: Hand-crafted custom vanilla CSS with HSL coloring, modern Google Fonts, subtle hover zoom animations, and premium glassmorphic overlays.
-- **Responsive Layout**: Fluid mobile navigation menu and adaptive grid structures for featured products and story/testimonial highlights.
-- **User Authentication**: Secure sign-up, login, and logout routines powered by Flask-Login and password hashing.
-- **Product Storefront**: Interactive product grid displaying named items, pricing in PHP (₱), and quick purchase flows.
-- **Admin Dashboard**: Secure management interface for products and order tracking.
 
-## Tech Stack
-- **Backend**: Python 3, Flask framework
-- **Database**: SQLite with SQLAlchemy ORM
-- **Migrations**: Flask-Migrate
-- **Frontend**: Vanilla HTML5, Custom CSS3, Boxicons, Bootstrap 5 (for structure & utility grid)
+- Customer landing page and informational pages
+- User registration and login
+- Session-based cart
+- Purchase flow for items
+- Admin dashboard for managing products
+- Admin view for orders and users
+- Upload support for product images
 
 ## Project Structure
+
 ```text
 Flower-main/
-│
-├── app.py                  # Core Flask Application & Routes
-├── instance/               # Database Instance Directory
-│   └── flower.db           # SQLite Database File
-│
-├── static/                 # Static Assets
-│   ├── css/
-│   │   └── style.css       # Core Styled Design System
-│   ├── image/              # Graphic & Flower Assets
-│   ├── js/                 # Javascript files
-│   └── uploads/            # Admin Uploaded Product Images
-│
-├── templates/              # Jinja2 HTML Templates
-│   ├── Base/
-│   │   └── layout.html     # Unified Shell Layout
-│   ├── Users/              # Customer Front-facing Pages
-│   └── Admin/              # Management Dashboard Panels
-│
-└── venv/                   # Python Virtual Environment
+|-- app.py
+|-- requirements.txt
+|-- documentation/
+|   `-- README.md
+|-- instance/
+|   `-- flower.db
+|-- migrations/
+|-- static/
+|-- templates/
+`-- venv/
 ```
 
-## Getting Started
-To get the project set up on your local machine, ensure you have Python 3 installed.
+## Requirements
 
-## How to Run
+- Python 3.10+ recommended
+- A local virtual environment
 
-1. **Activate the virtual environment**:
-   ```powershell
-   .\venv\Scripts\activate
-   ```
+## Installation
 
-2. **Start the Flask server**:
-   ```powershell
-   python app.py
-   ```
+From the project root:
 
-3. **Access in browser**:
-   Open [http://127.0.0.1:5000/](http://127.0.0.1:5000/) in your web browser.
+```powershell
+.\venv\Scripts\activate
+pip install -r requirements.txt
+```
 
-## Deployment to Render
+If you prefer a fresh environment, create one first and then install the dependencies.
 
-To deploy this project for free on Render:
+## Run The App
 
-1. **Push your code to GitHub**:
-   - Create a repository on GitHub (e.g. `Flower-Shop`).
-   - Push your project files to the repository. Make sure `requirements.txt` is in the root directory and your `.gitignore` excludes the `venv/` folder.
+```powershell
+python app.py
+```
 
-2. **Connect to Render**:
-   - Log in to [Render](https://render.com/).
-   - Click **New +** and select **Web Service**.
-   - Connect your GitHub account and select your repository.
+Then open:
 
-3. **Configure the Web Service**:
-   - **Name**: `ray-flowers` (or any name you like)
-   - **Region**: Select the closest region to your users
-   - **Branch**: `main`
-   - **Runtime**: `Python`
-   - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `gunicorn app:app`
-   - **Instance Type**: Select the **Free** plan.
+```text
+http://127.0.0.1:5000/
+```
 
-4. **Click Deploy**:
-   Render will build the project and provide a live URL (e.g., `https://ray-flowers.onrender.com`).
+## Default Admin Account
+
+The app creates a default admin user on first startup if one does not already exist:
+
+- Username: `admin`
+- Password: `admin123`
+
+Change this immediately if you plan to use the app beyond local testing.
+
+## Main Routes
+
+- `/` - Home page
+- `/login` - Login form
+- `/register` - Registration form
+- `/logout` - Log out
+- `/admin/dashboard` - Admin product dashboard
+- `/admin_orders` - Admin orders page
+- `/user-dashboard` - Logged-in user dashboard
+- `/user_product_dashboard` - Product listing and cart actions
+- `/view_cart` - Cart page
+- `/checkout` - Checkout page
+- `/payment` - Payment page
+- `/add` - Add new item for admin
+- `/manage_users` - User management page
+
+## Database Models
+
+The application defines these tables:
+
+- `User`
+- `Item`
+- `Cart`
+- `Order`
+
+## Database Notes
+
+- On local development, the database file lives at `instance/flower.db`
+- Uploaded product images are saved in `static/uploads/`
+- If the app is deployed on Render, it uses `/tmp/flower.db` and `/tmp/uploads`
+
+## Deployment Notes
+
+For Render or another Linux host:
+
+- Install dependencies with `pip install -r requirements.txt`
+- Start the app with `gunicorn app:app`
+- Set `SECRET_KEY` in the environment for production use
+
+## Known Project Notes
+
+- Some routes and templates are still rough around the edges and may need cleanup for production use
+- The app currently relies on the bundled SQLite database
+- The admin password is hardcoded for first-time setup, so it should be changed before real use
 
